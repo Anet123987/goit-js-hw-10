@@ -45,8 +45,7 @@ const options = {
   },
 };
 
-// Ініціалізація flatpickr
-flatpickr(dateTimePicker, options);
+
 
 // Обробка кнопки Start
 startBtn.addEventListener("click", () => {
@@ -76,8 +75,7 @@ function updateTimer(ms) {
   minutesEl.textContent = addLeadingZero(minutes);
   secondsEl.textContent = addLeadingZero(seconds);
 }
-function updateTimer(ms) {
-    const { days, hours, minutes, seconds } = convertMs(ms);
+
  
   
 function convertMs(ms) {
@@ -108,4 +106,3 @@ daysEl.textContent = d;
 hoursEl.textContent = h;
 minutesEl.textContent = m;
 secondsEl.textContent = s;
-} 
