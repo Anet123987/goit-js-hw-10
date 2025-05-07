@@ -68,13 +68,11 @@ startBtn.addEventListener("click", () => {
   }, 1000);
 });
 
-function updateTimer(ms) {
-  const { days, hours, minutes, seconds } = convertMs(ms);
-  daysEl.textContent = addLeadingZero(days);
-  hoursEl.textContent = addLeadingZero(hours);
-  minutesEl.textContent = addLeadingZero(minutes);
-  secondsEl.textContent = addLeadingZero(seconds);
-}
+daysEl.textContent = (days < 10 ? '0' : '') + days;
+hoursEl.textContent = (hours < 10 ? '0' : '') + hours;
+minutesEl.textContent = (minutes < 10 ? '0' : '') + minutes;
+secondsEl.textContent = (seconds < 10 ? '0' : '') + seconds;
+
 
  
   
@@ -92,17 +90,3 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
   
-let d = days;
-let h = hours;
-let m = minutes;
-let s = seconds;
-
-if (d < 10) d = '0' + d;
-if (h < 10) h = '0' + h;
-if (m < 10) m = '0' + m;
-if (s < 10) s = '0' + s;
-
-daysEl.textContent = d;
-hoursEl.textContent = h;
-minutesEl.textContent = m;
-secondsEl.textContent = s;
