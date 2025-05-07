@@ -1,18 +1,9 @@
-// бібліотекb
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-flatpickr("#datetime-picker", {
-    enableTime: true,        
-    dateFormat: "Y-m-d H:i", 
-    minDate: "today",        
-    time_24hr: true,        
-  });
-  
-  
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
-// елементи 
+
 const daysEl = document.querySelector('[data-days]');
 const hoursEl = document.querySelector('[data-hours]');
 const minutesEl = document.querySelector('[data-minutes]');
@@ -23,18 +14,19 @@ const dateTimePicker = document.querySelector('#datetime-picker');
 let userSelectedDate = null;
 let countdownInterval = null;
 
-const options = {
+
+flatpickr("#datetime-picker", {
   enableTime: true,
+  dateFormat: "Y-m-d H:i",
   time_24hr: true,
-  defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
     const selectedDate = selectedDates[0];
     if (selectedDate <= new Date()) {
       iziToast.warning({
-        title: 'Warning',
-        message: 'Please choose a date in the future',
-        position: 'topRight',
+        title: "Warning",
+        message: "Please choose a date in the future",
+        position: "topRight",
       });
       startBtn.disabled = true;
       userSelectedDate = null;
@@ -43,11 +35,9 @@ const options = {
       startBtn.disabled = false;
     }
   },
-};
+});
 
 
-
-// Обробка кнопки Start
 startBtn.addEventListener("click", () => {
   if (!userSelectedDate) return;
 
@@ -61,6 +51,8 @@ startBtn.addEventListener("click", () => {
     if (diff <= 0) {
       clearInterval(countdownInterval);
       updateTimer(0);
+      dateTimePicker.disabled = false;
+      startBtn.disabled = true;
       return;
     }
 
@@ -68,17 +60,19 @@ startBtn.addEventListener("click", () => {
   }, 1000);
 });
 
-daysEl.textContent = (days < 10 ? '0' : '') + days;
-hoursEl.textContent = (hours < 10 ? '0' : '') + hours;
-minutesEl.textContent = (minutes < 10 ? '0' : '') + minutes;
-secondsEl.textContent = (seconds < 10 ? '0' : '') + seconds;
 
+function updateTimer(ms) {
+  const { days, hours, minutes, seconds } = convertMs(ms);
 
- 
-  
+  daysEl.textContent = days;
+  hoursEl.textContent = hours;
+  minutesEl.textContent = minutes;
+  secondsEl.textContent = seconds;
+}
+
 function convertMs(ms) {
   const second = 1000;
-  const minute=second * 60;
+  const minute = second * 60;
   const hour = minute * 60;
   const day = hour * 24;
 
@@ -89,4 +83,3 @@ function convertMs(ms) {
 
   return { days, hours, minutes, seconds };
 }
-  
