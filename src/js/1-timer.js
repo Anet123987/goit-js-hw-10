@@ -20,6 +20,7 @@ flatpickr("#datetime-picker", {
   dateFormat: "Y-m-d H:i",
   time_24hr: true,
   minuteIncrement: 1,
+  defaultDate: new Date(),
   onClose(selectedDates) {
     const selectedDate = selectedDates[0];
     if (selectedDate <= new Date()) {
@@ -59,16 +60,25 @@ startBtn.addEventListener("click", () => {
     updateTimer(diff);
   }, 1000);
 });
-
+// function addLeadingZero(value) {
+//   return String(value).padStart(2, '0');
+// }
 
 function updateTimer(ms) {
   const { days, hours, minutes, seconds } = convertMs(ms);
+  daysEl.textContent = days < 10 ? '0' + days : days;
+  hoursEl.textContent = hours < 10 ? '0' + hours : hours;
+  minutesEl.textContent = minutes < 10 ? '0' + minutes : minutes;
+  secondsEl.textContent = seconds < 10 ? '0' + seconds : seconds;
+  // Або 
+  // daysEl.textContent = addLeadingZero(days);
+  // hoursEl.textContent = addLeadingZero(hours);
+  // minutesEl.textContent = addLeadingZero(minutes);
+  // secondsEl.textContent = addLeadingZero(seconds);
 
-  daysEl.textContent = days;
-  hoursEl.textContent = hours;
-  minutesEl.textContent = minutes;
-  secondsEl.textContent = seconds;
 }
+  
+
 
 function convertMs(ms) {
   const second = 1000;
